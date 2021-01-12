@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <string.h>
 
+
 static int  ln= 0;
 static char ident[256];
 static FILE *ci= NULL;
@@ -13,9 +14,19 @@ void    alex_init4file( FILE *in ) {
 }
 
 lexem_t alex_nextLexem( void ) {
-	int c;
+	char keyword[18][10]={"assert.h" , "ctype.h" ,"errno.h" ,"float.h" ,"limits.h" ,"locale.h" ,"math.h" , "setjmp.h" ,"signal.h" ,"stdarg.h" ,"stddef.h" ,"stdio.h" ,"stdlib.h" ,"wchar.h" ,"wctype.h" ,"string.h" ,"time.h" ,"iso646.h"} ;
+	
+	int c,flag=0;
 	while( (c= fgetc(ci)) != EOF ) {
     		if( isspace( c ) )
+			continue;
+		for(i = 0; i < 18; i++) {
+     		 if(strcmp(c,keyword[i])==0) {
+        		 flag=1;
+			 break;
+     		   }
+  		 }
+		if (flag==1)
 			continue;
     		else if( c == '\n' )
                         ln++;
