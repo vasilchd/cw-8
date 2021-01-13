@@ -13,20 +13,28 @@ void    alex_init4file( FILE *in ) {
    ci= in;
 }
 
+void isKeyword () {
+   char keyword[32][10]={
+      "auto","double","int","struct","break","else","long",
+      "switch","case","enum","register","typedef","char",
+      "extern","return","union","const","float","short",
+      "unsigned","continue","for","signed","void","default",
+      "goto","sizeof","voltile","do","if","static","while"
+   } ; 
+   int i;
+   for(i = 0; i < 32; i++) 
+      if(strcmp(,keyword[i])==0) 
+	return 1;
+   return 0;	
+}    
+
+
+
 lexem_t alex_nextLexem( void ) {
-	char keyword[18][10]={"assert.h" , "ctype.h" ,"errno.h" ,"float.h" ,"limits.h" ,"locale.h" ,"math.h" , "setjmp.h" ,"signal.h" ,"stdarg.h" ,"stddef.h" ,"stdio.h" ,"stdlib.h" ,"wchar.h" ,"wctype.h" ,"string.h" ,"time.h" ,"iso646.h"} ;
 	
-	int c,flag=0;
+	int c;
 	while( (c= fgetc(ci)) != EOF ) {
     		if( isspace( c ) )
-			continue;
-		for(i = 0; i < 18; i++) {
-     		 if(strcmp(c,keyword[i])==0) {
-        		 flag=1;
-			 break;
-     		   }
-  		 }
-		if (flag==1)
 			continue;
     		else if( c == '\n' )
                         ln++;
